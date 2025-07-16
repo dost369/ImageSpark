@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PixelCraft AI | Transform Text to Stunning Images</title>
+    <title>PixelCraft AI | Professional Text-to-Image Generator</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <style>
@@ -636,6 +636,22 @@
                 display: none;
             }
         }
+        
+        /* Animation for elements */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
     </style>
 </head>
 <body>
@@ -654,8 +670,8 @@
                     <a href="#">Features</a>
                     <a href="#">How It Works</a>
                     <a href="#">Gallery</a>
-                    <a href="#">Pricing</a>
-                    <button class="cta-button">Get Started</button>
+                    <a href="img-genrater.html">Generate Images</a> <!-- Link to your image generator -->
+                    <button class="cta-button" onclick="location.href='img-genrater.html'">Try Now</button>
                 </nav>
             </div>
         </div>
@@ -667,15 +683,17 @@
         <div class="floating-element floating-2"></div>
         <div class="container">
             <div class="hero-content">
-                <div class="hero-text">
+                <div class="hero-text animate">
                     <h1>Transform Your Ideas into Stunning Visuals</h1>
                     <p>PixelCraft AI is the most advanced text-to-image generator. Create beautiful, high-quality images from simple text descriptions with just a few clicks.</p>
                     <div class="hero-buttons">
-                        <button class="btn-primary"><i class="fas fa-wand-magic-sparkles"></i> Start Creating</button>
+                        <button class="btn-primary" onclick="location.href='img-genrater.html'">
+                            <i class="fas fa-wand-magic-sparkles"></i> Generate Images Now
+                        </button>
                         <button class="btn-secondary">View Demo</button>
                     </div>
                 </div>
-                <div class="hero-image">
+                <div class="hero-image animate" style="animation-delay: 0.2s;">
                     <div class="image-placeholder">
                         <img src="https://images.unsplash.com/photo-1682687220067-dced9a881b56?auto=format&fit=crop&q=80" alt="AI Generated Art">
                     </div>
@@ -687,52 +705,31 @@
     <!-- Features Section -->
     <section class="features">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header animate">
                 <h2 class="section-title">Powerful Features</h2>
                 <p class="section-subtitle">Discover why thousands of creators choose PixelCraft AI for their visual content needs</p>
             </div>
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card animate" style="animation-delay: 0.1s;">
                     <div class="feature-icon">
                         <i class="fas fa-bolt"></i>
                     </div>
                     <h3 class="feature-title">Lightning Fast Generation</h3>
                     <p class="feature-description">Create stunning images in seconds with our advanced AI technology. No more waiting for hours to see your ideas come to life.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card animate" style="animation-delay: 0.2s;">
                     <div class="feature-icon">
                         <i class="fas fa-sliders-h"></i>
                     </div>
                     <h3 class="feature-title">Advanced Customization</h3>
                     <p class="feature-description">Fine-tune your creations with aspect ratio selection, style choices, and multiple image generation options.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card animate" style="animation-delay: 0.3s;">
                     <div class="feature-icon">
                         <i class="fas fa-palette"></i>
                     </div>
                     <h3 class="feature-title">Diverse Art Styles</h3>
                     <p class="feature-description">Choose from realistic, oil painting, anime, pixel art, and more. The perfect style for every project.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-cloud-download-alt"></i>
-                    </div>
-                    <h3 class="feature-title">Easy Export</h3>
-                    <p class="feature-description">Download your creations in high-resolution formats or share directly to social media with one click.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-history"></i>
-                    </div>
-                    <h3 class="feature-title">History & Collections</h3>
-                    <p class="feature-description">Save and organize your favorite creations. Never lose track of your best work.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3 class="feature-title">Commercial License</h3>
-                    <p class="feature-description">All generated images come with commercial usage rights. Perfect for businesses and creators.</p>
                 </div>
             </div>
         </div>
@@ -741,27 +738,27 @@
     <!-- How It Works -->
     <section class="how-it-works">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header animate">
                 <h2 class="section-title">How It Works</h2>
                 <p class="section-subtitle">Creating stunning images has never been easier. Just follow these simple steps:</p>
             </div>
             <div class="steps">
-                <div class="step">
+                <div class="step animate" style="animation-delay: 0.1s;">
                     <div class="step-number">1</div>
                     <h3 class="step-title">Describe Your Vision</h3>
                     <p class="step-description">Enter a detailed description of the image you want to create. The more details you provide, the better the result.</p>
                 </div>
-                <div class="step">
+                <div class="step animate" style="animation-delay: 0.2s;">
                     <div class="step-number">2</div>
                     <h3 class="step-title">Customize Settings</h3>
                     <p class="step-description">Choose your preferred aspect ratio, art style, and number of images to generate.</p>
                 </div>
-                <div class="step">
+                <div class="step animate" style="animation-delay: 0.3s;">
                     <div class="step-number">3</div>
                     <h3 class="step-title">Generate & Refine</h3>
                     <p class="step-description">Watch as our AI creates stunning visuals. Refine your prompt and generate again if needed.</p>
                 </div>
-                <div class="step">
+                <div class="step animate" style="animation-delay: 0.4s;">
                     <div class="step-number">4</div>
                     <h3 class="step-title">Download & Share</h3>
                     <p class="step-description">Download your creation in high resolution or share directly to your favorite platforms.</p>
@@ -773,51 +770,30 @@
     <!-- Gallery Section -->
     <section class="gallery">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header animate">
                 <h2 class="section-title">AI-Generated Gallery</h2>
                 <p class="section-subtitle">See what our AI can create from simple text prompts</p>
             </div>
             <div class="gallery-grid">
-                <div class="gallery-item">
+                <div class="gallery-item animate" style="animation-delay: 0.1s;">
                     <img src="https://images.unsplash.com/photo-1682687220067-dced9a881b56?auto=format&fit=crop&q=80" alt="AI Generated Art">
                     <div class="gallery-overlay">
                         <h4 class="gallery-title">Futuristic Cityscape</h4>
                         <p class="gallery-prompt">"Neo-Tokyo at night with flying cars and holographic advertisements"</p>
                     </div>
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item animate" style="animation-delay: 0.2s;">
                     <img src="https://images.unsplash.com/photo-1682687220208-22d7a2543e88?auto=format&fit=crop&q=80" alt="AI Generated Art">
                     <div class="gallery-overlay">
                         <h4 class="gallery-title">Mountain Cabin</h4>
                         <p class="gallery-prompt">"Cozy wooden cabin in snowy mountains at twilight"</p>
                     </div>
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item animate" style="animation-delay: 0.3s;">
                     <img src="https://images.unsplash.com/photo-1682687220923-cbf364a6acd1?auto=format&fit=crop&q=80" alt="AI Generated Art">
                     <div class="gallery-overlay">
                         <h4 class="gallery-title">Underwater Fantasy</h4>
                         <p class="gallery-prompt">"Mystical underwater city with glowing coral and mermaids"</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1682687220015-186f63b8850a?auto=format&fit=crop&q=80" alt="AI Generated Art">
-                    <div class="gallery-overlay">
-                        <h4 class="gallery-title">Cyberpunk Street</h4>
-                        <p class="gallery-prompt">"Rain-soaked neon street in futuristic Hong Kong"</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1682687220063-4742bd7fd538?auto=format&fit=crop&q=80" alt="AI Generated Art">
-                    <div class="gallery-overlay">
-                        <h4 class="gallery-title">Sunset Desert</h4>
-                        <p class="gallery-prompt">"Lone camel in the desert at sunset, cinematic view"</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1682687220509-61b8a906ca19?auto=format&fit=crop&q=80" alt="AI Generated Art">
-                    <div class="gallery-overlay">
-                        <h4 class="gallery-title">Floating Islands</h4>
-                        <p class="gallery-prompt">"Fantasy landscape with floating islands and waterfalls"</p>
                     </div>
                 </div>
             </div>
@@ -827,10 +803,12 @@
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="container">
-            <div class="cta-content">
+            <div class="cta-content animate">
                 <h2 class="cta-title">Ready to Unleash Your Creativity?</h2>
                 <p class="cta-description">Join thousands of creators who are already using PixelCraft AI to bring their ideas to life. Start creating stunning visuals today!</p>
-                <button class="btn-primary"><i class="fas fa-wand-magic-sparkles"></i> Start Creating Free</button>
+                <button class="btn-primary" onclick="location.href='img-genrater.html'">
+                    <i class="fas fa-wand-magic-sparkles"></i> Generate Images Now
+                </button>
             </div>
         </div>
     </section>
@@ -839,7 +817,7 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-column">
+                <div class="footer-column animate" style="animation-delay: 0.1s;">
                     <h3>PixelCraft AI</h3>
                     <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px; line-height: 1.8;">The most advanced AI image generator that transforms your text into stunning visual masterpieces.</p>
                     <div class="social-links">
@@ -849,16 +827,16 @@
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
-                <div class="footer-column">
-                    <h3>Product</h3>
+                <div class="footer-column animate" style="animation-delay: 0.2s;">
+                    <h3>Quick Links</h3>
                     <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
                         <li><a href="#"><i class="fas fa-chevron-right"></i> Features</a></li>
+                        <li><a href="img-genrater.html"><i class="fas fa-chevron-right"></i> Generate Images</a></li>
                         <li><a href="#"><i class="fas fa-chevron-right"></i> Pricing</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Use Cases</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Demo</a></li>
                     </ul>
                 </div>
-                <div class="footer-column">
+                <div class="footer-column animate" style="animation-delay: 0.3s;">
                     <h3>Resources</h3>
                     <ul class="footer-links">
                         <li><a href="#"><i class="fas fa-chevron-right"></i> Documentation</a></li>
@@ -867,61 +845,27 @@
                         <li><a href="#"><i class="fas fa-chevron-right"></i> Community</a></li>
                     </ul>
                 </div>
-                <div class="footer-column">
-                    <h3>Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Careers</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
-                    </ul>
-                </div>
             </div>
-            <div class="footer-bottom">
+            <div class="footer-bottom animate" style="animation-delay: 0.4s;">
                 <p>&copy; 2023 PixelCraft AI. All rights reserved. Designed with ❤️ for creators worldwide.</p>
             </div>
         </div>
     </footer>
     
     <script>
-        // Simple animation for elements when they come into view
+        // Animation on scroll
         document.addEventListener('DOMContentLoaded', function() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+                        entry.target.classList.add('animate');
                     }
                 });
             }, { threshold: 0.1 });
             
-            // Observe sections
-            document.querySelectorAll('.hero-text, .feature-card, .step, .gallery-item').forEach(el => {
+            // Observe all sections
+            document.querySelectorAll('.hero-text, .hero-image, .section-header, .feature-card, .step, .gallery-item, .cta-content, .footer-column, .footer-bottom').forEach(el => {
                 observer.observe(el);
-            });
-            
-            // Add animation styles
-            const style = document.createElement('style');
-            style.innerHTML = `
-                .hero-text, .feature-card, .step, .gallery-item {
-                    opacity: 0;
-                    transform: translateY(30px);
-                    transition: all 0.6s ease-out;
-                }
-                
-                .hero-text.visible, .feature-card.visible, .step.visible, .gallery-item.visible {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-                
-                .feature-card.visible {
-                    transition-delay: calc(var(--index) * 0.1s);
-                }
-            `;
-            document.head.appendChild(style);
-            
-            // Add index for staggered animations
-            document.querySelectorAll('.feature-card').forEach((card, index) => {
-                card.style.setProperty('--index', index);
             });
         });
     </script>
