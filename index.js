@@ -6,7 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const REPLICATE_API_TOKEN = process.env.REPLICATE_API_TOKEN;
+const REPLICATE_API_TOKEN = process.env.replicate_api_token;
 
 app.post("/generate", async (req, res) => {
     const prompt = req.body.prompt;
