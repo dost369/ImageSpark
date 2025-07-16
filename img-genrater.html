@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelCraft AI | Professional Image Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e6f7ff 0%, #f0fff4 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: #2c3e50;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            padding: 20px;
+            z-index: 1;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.2);
+        }
+        
+        .logo-icon i {
+            font-size: 28px;
+            color: white;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #2980b9, #27ae60);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+            color: #5d6d7e;
+            font-weight: 400;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            width: 100%;
+            gap: 40px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #2980b9;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .section-title i {
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .prompt-input {
+            width: 100%;
+            height: 180px;
+            padding: 20px;
+            border-radius: 18px;
+            border: 2px solid #e3f2fd;
+            background: rgba(255, 255, 255, 0.7);
+            color: #2c3e50;
+            font-size: 1.1rem;
+            resize: none;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            line-height: 1.6;
+            box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.03);
+        }
+        
+        .prompt-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: inset 0 4px 15px rgba(52, 152, 219, 0.1);
+            background: white;
+        }
+        
+        .prompt-input::placeholder {
+            color: #a6b4c8;
+        }
+        
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .options-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .option-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .option-label {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: #3498db;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+        
+        .style-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 15px;
+        }
+        
+        .style-option {
+            background: white;
+            border: 1px solid #e3f2fd;
+            padding: 15px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+        
+        .style-option:hover {
+            border-color: #3498db;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.15);
+        }
+        
+        .style-option.active {
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            color: white;
+            font-weight: 500;
+            border-color: transparent;
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.25);
+        }
+        
+        .style-icon {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .style-option.active .style-icon {
+            color: white;
+            -webkit-text-fill-color: white;
+        }
+        
+        .ratio-options, .quantity-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        
+        .ratio-option, .quantity-option {
+            background: white;
+            border: 1px solid #e3f2fd;
+            padding: 12px 5px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+        }
+        
+        .ratio-option:hover, .quantity-option:hover {
+            border-color: #3498db;
+            transform: translateY(-2px);
+        }
+        
+        .ratio-option.active, .quantity-option.active {
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            color: white;
+            font-weight: 500;
+            border-color: transparent;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
+        }
+        
+        .slider-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 10px;
+            border-radius: 10px;
+            background: #e3f2fd;
+            outline: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+            border: 2px solid white;
+        }
+        
+        .generate-btn {
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            font-size: 1.2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .generate-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+        
+        .generate-btn:hover::before {
+            left: 100%;
+        }
+        
+        .generate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(52, 152, 219, 0.4);
+        }
+        
+        .generate-btn:active {
+            transform: translateY(0);
+        }
+        
+        .image-container {
+            width: 100%;
+            min-height: 400px;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 30px;
+            border: 2px dashed #e3f2fd;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+        }
+        
+        .image-container.hover {
+            border-color: #3498db;
+            box-shadow: 0 15px 35px rgba(52, 152, 219, 0.1);
+        }
+        
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            width: 100%;
+            padding: 15px;
+            display: none;
+        }
+        
+        .image-item {
+            width: 100%;
+            height: 180px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid #e3f2fd;
+        }
+        
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .single-image {
+            max-width: 100%;
+            max-height: 500px;
+            border-radius: 12px;
+            display: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            object-fit: contain;
+        }
+        
+        .placeholder-content {
+            text-align: center;
+            padding: 30px;
+            color: #a6b4c8;
+            max-width: 400px;
+        }
+        
+        .placeholder-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .placeholder-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+        
+        .loading {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            justify-content: center;
+            border-radius: 20px;
+        }
+        
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(52, 152, 219, 0.1);
+            border-radius: 50%;
+            border-top: 5px solid #3498db;
+            animation: spin 1.5s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-size: 1.3rem;
+            color: #3498db;
+            text-align: center;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .action-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 15px;
+            border-radius: 15px;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            max-width: 200px;
+            background: white;
+            color: #2c3e50;
+            border: 1px solid #e3f2fd;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+        
+        .action-btn i {
+            transition: transform 0.3s ease;
+        }
+        
+        .download-btn:hover {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+        
+        .download-btn:hover i {
+            transform: translateY(-3px);
+        }
+        
+        .share-btn:hover {
+            background: #2ecc71;
+            color: white;
+            border-color: #2ecc71;
+        }
+        
+        .share-btn:hover i {
+            transform: translateY(-3px);
+        }
+        
+        .examples {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+        }
+        
+        .examples-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .examples-title {
+            font-size: 1.8rem;
+            color: #2980b9;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .example-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            border: 1px solid #e3f2fd;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+        }
+        
+        .example-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(52, 152, 219, 0.15);
+            border-color: #3498db;
+        }
+        
+        .example-image {
+            width: 100%;
+            height: 180px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #d6eaf8, #d5f5e3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .example-image i {
+            font-size: 4rem;
+            color: rgba(52, 152, 219, 0.2);
+        }
+        
+        .example-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .example-title i {
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .example-prompt {
+            font-size: 0.95rem;
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            width: 100%;
+            color: #7f8c8d;
+            font-size: 1rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: #3498db;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+        
+        .footer-link:hover {
+            color: #2ecc71;
+        }
+        
+        @media (max-width: 1100px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .card, .examples {
+                padding: 30px 20px;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .logo {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .ratio-options, .quantity-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Animation for generated image */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <h1>Pixel<span style="color:#2ecc71">Craft</span> AI</h1>
+            </div>
+            <p class="subtitle">Transform your ideas into stunning visuals with our professional AI image generator</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="card">
+                <h2 class="section-title"><i class="fas fa-edit"></i> Create Your Vision</h2>
+                <textarea class="prompt-input" id="promptInput" placeholder="Describe the image you want to create in detail... Example: 'A serene lakeside cabin at sunset with mountains in the background, photorealistic style, 8k resolution'"></textarea>
+                
+                <div class="controls">
+                    <div class="option-group">
+                        <div class="option-label">
+                            <i class="fas fa-expand-alt"></i> Aspect Ratio
+                        </div>
+                        <div class="ratio-options">
+                            <div class="ratio-option active" data-ratio="9:16">9:16 (Mobile)</div>
+                            <div class="ratio-option" data-ratio="1:1">1:1 (Square)</div>
+                            <div class="ratio-option" data-ratio="16:9">16:9 (Widescreen)</div>
+                            <div class="ratio-option" data-ratio="4:5">4:5 (Portrait)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <div class="option-label">
+                            <i class="fas fa-layer-group"></i> Number of Images
+                        </div>
+                        <div class="quantity-options">
+                            <div class="quantity-option active" data-quantity="1">1 Image</div>
+                            <div class="quantity-option" data-quantity="2">2 Images</div>
+                            <div class="quantity-option" data-quantity="3">3 Images</div>
+                            <div class="quantity-option" data-quantity="4">4 Images</div>
+                        </div>
+                    </div>
+                    
+                    <div class="options-row">
+                        <div class="option-group">
+                            <div class="option-label">
+                                <i class="fas fa-palette"></i> Art Style
+                            </div>
+                            <div class="style-options">
+                                <div class="style-option active" data-style="realistic">
+                                    <i class="fas fa-mountain style-icon"></i>
+                                    <span>Realistic</span>
+                                </div>
+                                <div class="style-option" data-style="oil-painting">
+                                    <i class="fas fa-brush style-icon"></i>
+                                    <span>Oil Painting</span>
+                                </div>
+                                <div class="style-option" data-style="anime">
+                                    <i class="fas fa-dragon style-icon"></i>
+                                    <span>Anime</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option-group">
+                            <div class="option-label">
+                                <i class="fas fa-sliders-h"></i> Creativity Level
+                            </div>
+                            <div class="slider-container">
+                                <input type="range" min="1" max="10" value="7" class="slider" id="creativitySlider">
+                                <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #7f8c8d;">
+                                    <span>Precise</span>
+                                    <span>Creative</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="generate-btn" id="generateBtn">
+                        <i class="fas fa-wand-magic-sparkles"></i> GENERATE IMAGES
+                    </button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="section-title"><i class="fas fa-image"></i> Generated Artwork</h2>
+                <div class="image-container" id="imageContainer">
+                    <div class="placeholder-content">
+                        <i class="fas fa-cloud-download-alt placeholder-icon"></i>
+                        <p class="placeholder-text">Your AI-generated masterpiece will appear here. Enter a detailed description and click "Generate Images" to begin.</p>
+                    </div>
+                    <div class="loading" id="loadingIndicator">
+                        <div class="spinner"></div>
+                        <p class="loading-text">Processing your vision with AI<br>This usually takes 10-20 seconds</p>
+                    </div>
+                    <div class="images-grid" id="imagesGrid"></div>
+                    <img id="singleImage" class="single-image" alt="Generated image based on your prompt">
+                </div>
+                
+                <div class="actions">
+                    <button class="action-btn download-btn" id="downloadBtn">
+                        <i class="fas fa-download"></i> Download All
+                    </button>
+                    <button class="action-btn share-btn" id="shareBtn">
+                        <i class="fas fa-share-alt"></i> Share
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="examples">
+            <div class="examples-header">
+                <div class="examples-title">Inspiration Gallery</div>
+                <div style="color: #3498db; font-weight: 500;">Try these examples to get started</div>
+            </div>
+            
+            <div class="examples-grid">
+                <div class="example-card" data-prompt="A modern workspace with panoramic city view, minimalist design, natural lighting, and plants">
+                    <div class="example-image">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="example-title">
+                        <i class="fas fa-briefcase"></i> Modern Workspace
+                    </div>
+                    <p class="example-prompt">Minimalist office with city view, natural light, and greenery</p>
+                </div>
+                
+                <div class="example-card" data-prompt="A futuristic electric sports car on a coastal highway at golden hour, photorealistic">
+                    <div class="example-image">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <div class="example-title">
+                        <i class="fas fa-bolt"></i> Electric Sports Car
+                    </div>
+                    <p class="example-prompt">Futuristic EV on coastal road at sunset</p>
+                </div>
+                
+                <div class="example-card" data-prompt="A mountain cabin in a snowy forest at twilight, smoke from chimney, warm lights in windows">
+                    <div class="example-image">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="example-title">
+                        <i class="fas fa-tree"></i> Snowy Mountain Cabin
+                    </div>
+                    <p class="example-prompt">Cozy cabin in snowy forest at twilight</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <div class="footer-links">
+                <a href="#" class="footer-link"><i class="fas fa-file-alt"></i> Documentation</a>
+                <a href="#" class="footer-link"><i class="fas fa-crown"></i> Premium</a>
+                <a href="#" class="footer-link"><i class="fas fa-question-circle"></i> Support</a>
+                <a href="#" class="footer-link"><i class="fas fa-shield-alt"></i> Privacy</a>
+            </div>
+            <p>© 2023 PixelCraft AI. All rights reserved. AI-generated images are royalty-free for personal and commercial use.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Select elements
+        const promptInput = document.getElementById('promptInput');
+        const generateBtn = document.getElementById('generateBtn');
+        const imageContainer = document.getElementById('imageContainer');
+        const imagesGrid = document.getElementById('imagesGrid');
+        const singleImage = document.getElementById('singleImage');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const shareBtn = document.getElementById('shareBtn');
+        const styleOptions = document.querySelectorAll('.style-option');
+        const ratioOptions = document.querySelectorAll('.ratio-option');
+        const quantityOptions = document.querySelectorAll('.quantity-option');
+        const exampleCards = document.querySelectorAll('.example-card');
+        const creativitySlider = document.getElementById('creativitySlider');
+        
+        // Current selected options
+        let selectedStyle = 'realistic';
+        let selectedRatio = '9:16';
+        let selectedQuantity = '1';
+        let creativityLevel = 7;
+        
+        // Set up style selection
+        styleOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                // Remove active class from all options
+                styleOptions.forEach(opt => opt.classList.remove('active'));
+                
+                // Add active class to clicked option
+                option.classList.add('active');
+                
+                // Update selected style
+                selectedStyle = option.dataset.style;
+            });
+        });
+        
+        // Set up ratio selection
+        ratioOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                // Remove active class from all options
+                ratioOptions.forEach(opt => opt.classList.remove('active'));
+                
+                // Add active class to clicked option
+                option.classList.add('active');
+                
+                // Update selected ratio
+                selectedRatio = option.dataset.ratio;
+            });
+        });
+        
+        // Set up quantity selection
+        quantityOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                // Remove active class from all options
+                quantityOptions.forEach(opt => opt.classList.remove('active'));
+                
+                // Add active class to clicked option
+                option.classList.add('active');
+                
+                // Update selected quantity
+                selectedQuantity = option.dataset.quantity;
+            });
+        });
+        
+        // Set up example cards
+        exampleCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const prompt = card.dataset.prompt;
+                promptInput.value = prompt;
+                promptInput.focus();
+            });
+        });
+        
+        // Set up creativity slider
+        creativitySlider.addEventListener('input', () => {
+            creativityLevel = creativitySlider.value;
+        });
+        
+        // Image generation function
+        async function generateImage() {
+            const prompt = promptInput.value.trim();
+            
+            if (!prompt) {
+                showNotification('Please enter a description for the image', 'error');
+                return;
+            }
+            
+            // Show loading indicator
+            imageContainer.querySelector('.placeholder-content').style.display = 'none';
+            loadingIndicator.style.display = 'flex';
+            imagesGrid.style.display = 'none';
+            singleImage.style.display = 'none';
+            downloadBtn.disabled = true;
+            shareBtn.disabled = true;
+            
+            try {
+                // Simulate API call delay
+                await new Promise(resolve => setTimeout(resolve, 2500));
+                
+                // Clear previous images
+                imagesGrid.innerHTML = '';
+                
+                // Determine image dimensions based on ratio
+                let width, height;
+                switch(selectedRatio) {
+                    case '9:16':
+                        width = 450;
+                        height = 800;
+                        break;
+                    case '1:1':
+                        width = 600;
+                        height = 600;
+                        break;
+                    case '16:9':
+                        width = 800;
+                        height = 450;
+                        break;
+                    case '4:5':
+                        width = 600;
+                        height = 750;
+                        break;
+                    default:
+                        width = 600;
+                        height = 600;
+                }
+                
+                // Generate multiple images if needed
+                const quantity = parseInt(selectedQuantity);
+                
+                if(quantity === 1) {
+                    // Generate single image
+                    const imgUrl = `https://source.unsplash.com/${width}x${height}/?${encodeURIComponent(prompt)}`;
+                    
+                    singleImage.onload = () => {
+                        loadingIndicator.style.display = 'none';
+                        singleImage.style.display = 'block';
+                        singleImage.classList.add('fade-in');
+                        downloadBtn.disabled = false;
+                        shareBtn.disabled = false;
+                        
+                        // Change container style
+                        imageContainer.classList.add('hover');
+                        
+                        // Show success notification
+                        showNotification('Your artwork has been generated successfully!', 'success');
+                    };
+                    
+                    singleImage.src = imgUrl;
+                } else {
+                    // Generate multiple images
+                    imagesGrid.style.display = 'grid';
+                    
+                    // Adjust grid based on quantity
+                    if(quantity === 2) {
+                        imagesGrid.style.gridTemplateColumns = '1fr 1fr';
+                    } else if(quantity === 3 || quantity === 4) {
+                        imagesGrid.style.gridTemplateColumns = 'repeat(2, 1fr)';
+                    }
+                    
+                    // Create image elements
+                    for(let i = 0; i < quantity; i++) {
+                        const imgUrl = `https://source.unsplash.com/${width}x${height}/?${encodeURIComponent(prompt)}-${i}`;
+                        
+                        const imgItem = document.createElement('div');
+                        imgItem.className = 'image-item';
+                        
+                        const img = document.createElement('img');
+                        img.src = imgUrl;
+                        img.alt = `Generated image ${i+1}`;
+                        
+                        imgItem.appendChild(img);
+                        imagesGrid.appendChild(imgItem);
+                    }
+                    
+                    loadingIndicator.style.display = 'none';
+                    downloadBtn.disabled = false;
+                    shareBtn.disabled = false;
+                    imageContainer.classList.add('hover');
+                    showNotification(`${quantity} images generated successfully!`, 'success');
+                }
+                
+            } catch (error) {
+                console.error('Error generating image:', error);
+                loadingIndicator.style.display = 'none';
+                imageContainer.querySelector('.placeholder-content').style.display = 'flex';
+                downloadBtn.disabled = true;
+                shareBtn.disabled = true;
+                showNotification('Error generating image. Please try again.', 'error');
+            }
+        }
+        
+        // Set up generate button
+        generateBtn.addEventListener('click', generateImage);
+        
+        // Set up download button
+        downloadBtn.addEventListener('click', () => {
+            if(selectedQuantity === "1") {
+                const link = document.createElement('a');
+                link.href = singleImage.src;
+                link.download = `pixelcraft-ai-${Date.now()}.jpg`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else {
+                // In a real implementation, you would create a ZIP of all images
+                showNotification('All images downloaded as ZIP file', 'success');
+            }
+            showNotification('Image downloaded successfully!', 'success');
+        });
+        
+        // Set up share button
+        shareBtn.addEventListener('click', () => {
+            showNotification('Image link copied to clipboard', 'success');
+        });
+        
+        // Allow pressing Enter in the textarea to generate
+        promptInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                generateImage();
+            }
+        });
+        
+        // Notification function
+        function showNotification(message, type) {
+            // Remove existing notifications
+            const existing = document.querySelector('.notification');
+            if (existing) existing.remove();
+            
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i> ${message}`;
+            
+            document.body.appendChild(notification);
+            
+            // Position and animate
+            setTimeout(() => {
+                notification.style.bottom = '30px';
+                notification.style.opacity = '1';
+            }, 10);
+            
+            // Remove after delay
+            setTimeout(() => {
+                notification.style.bottom = '-100px';
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    notification.remove();
+                }, 500);
+            }, 3000);
+        }
+        
+        // Add notification styles
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .notification {
+                position: fixed;
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: -100px;
+                padding: 18px 35px;
+                border-radius: 15px;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                z-index: 1000;
+                opacity: 0;
+                transition: all 0.5s ease;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                background: white;
+                color: #2c3e50;
+                border: 1px solid #e3f2fd;
+            }
+            
+            .success {
+                color: #27ae60;
+                border-left: 4px solid #2ecc71;
+            }
+            
+            .error {
+                color: #e74c3c;
+                border-left: 4px solid #e74c3c;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
