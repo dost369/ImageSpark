@@ -3,7 +3,9 @@ const cors = require("cors");
 const fetch = require("node-fetch");
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'https://dost369.github.io'
+}));
 app.use(express.json());
 
 const REPLICATE_API_TOKEN = process.env.replicate_api_token;
