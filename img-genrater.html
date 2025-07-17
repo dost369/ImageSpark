@@ -808,7 +808,7 @@
                 <a href="#" class="footer-link"><i class="fas fa-question-circle"></i> Support</a>
                 <a href="#" class="footer-link"><i class="fas fa-shield-alt"></i> Privacy</a>
             </div>
-            <p>© 2023 PixelCraft AI. All rights reserved. AI-generated images are royalty-free for personal and commercial use.</p>
+            <p>© 2025 AI Image Genrater-DK. All rights reserved. AI-generated images are royalty-free for personal and commercial use.</p>
         </footer>
     </div>
 
@@ -943,8 +943,18 @@
                 
                 if(quantity === 1) {
                     // Generate single image
-                    const imgUrl = `https://source.unsplash.com/${width}x${height}/?${encodeURIComponent(prompt)}`;
-                    
+                      const response = await fetch('/api/generate-image', {
+                            method: 'POST',
+                       headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                       prompt,
+                                style: selectedStyle,
+                              ratio: selectedRatio,
+                    quantity: selectedQuantity,
+                    creativity: creativityLevel
+                     }) 
+                      });
+                      
                     singleImage.onload = () => {
                         loadingIndicator.style.display = 'none';
                         singleImage.style.display = 'block';
@@ -973,7 +983,18 @@
                     
                     // Create image elements
                     for(let i = 0; i < quantity; i++) {
-                        const imgUrl = `https://source.unsplash.com/${width}x${height}/?${encodeURIComponent(prompt)}-${i}`;
+                        const response = await fetch('/api/generate-image', {
+                         method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({
+                              prompt,
+                         style: selectedStyle,
+                        ratio: selectedRatio,
+                            quantity: selectedQuantity,
+                              creativity: creativityLevel
+                                 })
+                                     });
+
                         
                         const imgItem = document.createElement('div');
                         imgItem.className = 'image-item';
